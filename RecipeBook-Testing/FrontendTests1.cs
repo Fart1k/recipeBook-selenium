@@ -48,6 +48,32 @@ namespace RecipeBook_Testing
             string recipeNameDetail = driver.FindElement(By.Id("recipeTitle")).Text;
             string recipeDescriptionDetail = driver.FindElement(By.Id("gameDescriptionDetail")).Text;
 
+            driver.Quit();
+
+            Assert.Equal(DataOfRecipe1[0], recipeNameDetail);
+            Assert.Equal(DataOfRecipe1[1], recipeDescriptionDetail);
+        }
+
+        [Fact]
+        [Order(2)]
+        public void Should_NavigateToDetailsOfRecipe_WithPreviouslyCorrectData()
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "http://localhost:5173";
+            Thread.Sleep(200);
+
+            IWebElement navigateToRecipes = driver.FindElement(By.Id("RL_Recipes"));
+            navigateToRecipes.Click();
+            Thread.Sleep(200);
+
+            IWebElement thisRecipe = driver.FindElement(By.Id($"{DataOfRecipe1[0]}"));
+            thisRecipe.Click();
+
+            string recipeNameDetail = driver.FindElement(By.Id("recipeTitle")).Text;
+            string recipeDescriptionDetail = driver.FindElement(By.Id("gameDescriptionDetail")).Text;
+
+            driver.Quit();
+
             Assert.Equal(DataOfRecipe1[0], recipeNameDetail);
             Assert.Equal(DataOfRecipe1[1], recipeDescriptionDetail);
         }
